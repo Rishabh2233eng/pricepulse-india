@@ -15,10 +15,7 @@ export default function Navbar() {
         <div className="flex items-center gap-6 text-sm text-gray-400">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <Link href="/search" className="hover:text-white transition-colors">Search</Link>
-          <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
-          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium">
-            🇮🇳 India
-          </span>
+          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium">🇮🇳 India</span>
         </div>
       </div>
     </nav>
