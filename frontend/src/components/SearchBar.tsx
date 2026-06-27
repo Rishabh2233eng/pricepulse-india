@@ -2,7 +2,20 @@
 import { useState } from "react";
 import { Search, Loader2 } from "lucide-react";
 
-export default function SearchBar() {
+interface Price {
+  name: string;
+  price: string;
+  unit: string;
+  change: number;
+  source: string;
+  category: string;
+}
+
+interface SearchBarProps {
+  onResults: (results: Price[], query: string) => void;
+}
+
+export default function SearchBar({ onResults }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -10,7 +23,19 @@ export default function SearchBar() {
     e.preventDefault();
     if (!query.trim()) return;
     setLoading(true);
-    setTimeout(() => setLoading(false), 1500);
+    try {
+      const res = await fetch(`/api/prices?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      onResults(data.prices, query);
+    } catch {
+      onResults([], query);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const quickSearch = (term: string) => {
+    setQuery(term);
   };
 
   return (
@@ -35,13 +60,13 @@ export default function SearchBar() {
         </button>
       </div>
       <p className="text-center text-xs text-gray-600 mt-3">
-        Try: <span className="text-gray-500 cursor-pointer hover:text-emerald-400 transition-colors" onClick={() => setQuery("tomato")}>tomato</span>
-        {" · "}
-        <span className="text-gray-500 cursor-pointer hover:text-emerald-400 transition-colors" onClick={() => setQuery("petrol")}>petrol</span>
-        {" · "}
-        <span className="text-gray-500 cursor-pointer hover:text-emerald-400 transition-colors" onClick={() => setQuery("gold")}>gold</span>
-        {" · "}
-        <span className="text-gray-500 cursor-pointer hover:text-emerald-400 transition-colors" onClick={() => setQuery("iPhone 15")}>iPhone 15</span>
+        Try:{" "}
+        {["tomato", "petrol", "gold", "onion"].map((term) => (
+          <span key={term}>
+            <span className="text-gray-500 cursor-pointer hover:text-emerald-400 transition-colors" onClick={() => quickSearch(term)}>{term}</span>
+            {term !== "onion" && " · "}
+          </span>
+        ))}
       </p>
     </form>
   );

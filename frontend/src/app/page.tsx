@@ -1,9 +1,20 @@
+"use client";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import SearchBar from "@/components/SearchBar";
 import PriceCard from "@/components/PriceCard";
 import { Sparkles, Zap, Brain } from "lucide-react";
 
-const trendingPrices = [
+interface Price {
+  name: string;
+  price: string;
+  unit: string;
+  change: number;
+  source: string;
+  category: string;
+}
+
+const defaultPrices: Price[] = [
   { name: "Tomato", price: "42", unit: "kg", change: -12, source: "Agmarknet", category: "Vegetable" },
   { name: "Petrol Delhi", price: "94.77", unit: "litre", change: 0, source: "IOCL", category: "Fuel" },
   { name: "Gold 24K", price: "7,240", unit: "gram", change: 1.2, source: "MCX", category: "Commodity" },
@@ -19,6 +30,16 @@ const features = [
 ];
 
 export default function Home() {
+  const [results, setResults] = useState<Price[]>(defaultPrices);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searched, setSearched] = useState(false);
+
+  const handleResults = (prices: Price[], query: string) => {
+    setResults(prices);
+    setSearchQuery(query);
+    setSearched(true);
+  };
+
   return (
     <main className="min-h-screen bg-[#080B0F] text-white">
       <Navbar />
@@ -36,7 +57,7 @@ export default function Home() {
           <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
             From vegetables to gold, petrol to electronics — search any product and get current market prices powered by AI.
           </p>
-          <SearchBar />
+          <SearchBar onResults={handleResults} />
         </div>
       </section>
 
@@ -57,11 +78,13 @@ export default function Home() {
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-white">Trending Prices Today</h2>
+            <h2 className="text-xl font-bold text-white">
+              {searched ? `Results for "${searchQuery}"` : "Trending Prices Today"}
+            </h2>
             <span className="text-xs text-gray-500">Updated just now</span>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {trendingPrices.map((item, i) => (
+            {results.map((item, i) => (
               <PriceCard key={i} {...item} />
             ))}
           </div>
