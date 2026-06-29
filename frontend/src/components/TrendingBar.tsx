@@ -16,17 +16,17 @@ const trending = [
 export default function TrendingBar() {
   const router = useRouter();
   return (
-    <div className="w-full bg-white/3 border-b border-white/5 py-2 overflow-hidden">
-      <div className="flex gap-6 animate-none overflow-x-auto scrollbar-hide px-4">
+    <div className="w-full bg-[#1C1B19] py-2 overflow-hidden mt-16">
+      <div className="flex gap-6 overflow-x-auto scrollbar-hide px-4">
         {trending.map((item, i) => (
           <button
             key={i}
             onClick={() => router.push("/search?q=" + encodeURIComponent(item.name))}
-            className="flex items-center gap-2 whitespace-nowrap text-sm hover:text-emerald-400 transition-colors shrink-0"
+            className="flex items-center gap-2 whitespace-nowrap text-sm hover:opacity-70 transition-opacity shrink-0"
           >
-            <span className="text-gray-300">{item.name}</span>
-            <span className="text-emerald-400 font-medium">{"₹" + Number(item.price).toLocaleString("en-IN")}</span>
-            <span className={item.change > 0 ? "text-red-400" : item.change < 0 ? "text-emerald-400" : "text-gray-500"}>
+            <span className="text-[#F7F2E9]">{item.name}</span>
+            <span className="font-mono-price text-[#E8871E] font-bold">₹{Number(item.price).toLocaleString("en-IN")}</span>
+            <span className={item.change > 0 ? "text-[#E89B8C]" : item.change < 0 ? "text-[#6FBFBF]" : "text-[#6B6357]"}>
               {item.change > 0 ? <TrendingUp className="w-3 h-3 inline" /> : item.change < 0 ? <TrendingDown className="w-3 h-3 inline" /> : null}
               {item.change !== 0 ? Math.abs(item.change) + "%" : "stable"}
             </span>

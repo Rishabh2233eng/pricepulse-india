@@ -19,24 +19,24 @@ export default function PriceCard({ name, price, unit, change, source, category,
 
   const handleClick = () => {
     const slug = name.toLowerCase().replace(/\s+/g, "-");
-    router.push(`/product/${slug}?price=${price}&unit=${unit}&change=${change}&source=${source}&category=${category}&description=${encodeURIComponent(description || "")}`);
+    router.push("/product/" + slug + "?price=" + price + "&unit=" + unit + "&change=" + change + "&source=" + source + "&category=" + category + "&description=" + encodeURIComponent(description || ""));
   };
 
   return (
-    <div onClick={handleClick} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-emerald-500/30 hover:bg-white/8 transition-all cursor-pointer group">
+    <div onClick={handleClick} className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-5 card-shadow card-shadow-hover transition-all duration-150 cursor-pointer group relative">
       <div className="flex items-start justify-between mb-3">
-        <span className="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded-full">{category}</span>
-        <div className={`flex items-center gap-1 text-xs font-medium ${isUp ? "text-red-400" : isDown ? "text-emerald-400" : "text-gray-400"}`}>
+        <span className="text-xs font-bold uppercase tracking-wide text-[#6B6357] border border-[#DDD4C2] px-2 py-0.5 rounded-sm">{category}</span>
+        <div className={"flex items-center gap-1 text-xs font-bold " + (isUp ? "text-[#B33A2E]" : isDown ? "text-[#0F5C5C]" : "text-[#6B6357]")}>
           {isUp ? <TrendingUp className="w-3 h-3" /> : isDown ? <TrendingDown className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
           {Math.abs(change)}%
         </div>
       </div>
-      <h3 className="text-white font-semibold text-lg mb-1 group-hover:text-emerald-400 transition-colors">{name}</h3>
-      <div className="flex items-baseline gap-1">
-        <span className="text-2xl font-bold text-emerald-400">₹{Number(price).toLocaleString("en-IN")}</span>
-        <span className="text-gray-500 text-sm">/ {unit}</span>
+      <h3 className="font-display text-lg mb-2 text-[#1C1B19] group-hover:text-[#E8871E] transition-colors">{name}</h3>
+      <div className="flex items-baseline gap-1 ledger-line pb-2">
+        <span className="font-mono-price text-2xl font-bold text-[#1C1B19]">₹{Number(price).toLocaleString("en-IN")}</span>
+        <span className="text-[#6B6357] text-sm">/ {unit}</span>
       </div>
-      <p className="text-gray-600 text-xs mt-3">Source: {source} · Tap for details →</p>
+      <p className="text-[#6B6357] text-xs mt-3">Source: {source} · Tap for full details →</p>
     </div>
   );
 }

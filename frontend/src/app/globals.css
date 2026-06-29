@@ -128,3 +128,48 @@
     @apply font-sans;
   }
 }
+:root {
+  --paper: #F0E9D8;
+  --paper-dark: #E5DCC5;
+  --ink: #1C1B19;
+  --ink-light: #6B6357;
+  --marigold: #E8871E;
+  --marigold-dark: #C56F12;
+  --teal: #0F5C5C;
+  --brick: #B33A2E;
+  --line: #C9BD9F;
+}
+
+body {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(28,27,25,0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--font-body), -apple-system, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.font-mono-price {
+  font-family: var(--font-mono), 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.ledger-line {
+  border-bottom: 1px dashed var(--line);
+}
+
+.card-shadow {
+  box-shadow: 3px 3px 0px 0px var(--ink);
+}
+
+.card-shadow-hover:hover {
+  box-shadow: 5px 5px 0px 0px var(--ink);
+  transform: translate(-2px, -2px);
+}
