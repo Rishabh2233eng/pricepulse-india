@@ -1,9 +1,11 @@
 "use client";
 import { useSearchParams, useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import { TrendingUp, TrendingDown, Minus, ArrowLeft, ExternalLink } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, ArrowLeft, ExternalLink, Heart } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useState, useEffect } from "react";
+import PriceChart from "@/components/PriceChart";
+import { addToWatchlist, removeFromWatchlist, isInWatchlist } from "@/lib/watchlist";
 
 const cityPrices: Record<string, number> = {
   Delhi: 0, Mumbai: 5, Bangalore: 3, Chennai: 2, Hyderabad: 4, Pune: 1, Kolkata: -2, Ahmedabad: -1,
@@ -25,6 +27,22 @@ function ProductDetail() {
   const isUp = change > 0;
   const isDown = change < 0;
   const basePrice = parseFloat(price.replace(/,/g, "")) || 0;
+
+  const [watched, setWatched] = useState(false);
+
+  useEffect(() => {
+    setWatched(isInWatchlist(name));
+  }, [name]);
+
+  const toggleWatchlist = () => {
+    if (watched) {
+      removeFromWatchlist(name);
+      setWatched(false);
+    } else {
+      addToWatchlist({ name, price, unit, category, addedAt: new Date().toISOString() });
+      setWatched(true);
+    }
+  };
 
   useEffect(() => {
     const product = slug.split("-")[0];
@@ -61,6 +79,13 @@ function ProductDetail() {
               <p className="text-[#6B6357] text-sm max-w-lg">{description}</p>
             </div>
             <div className="text-right">
+              <button
+                onClick={toggleWatchlist}
+                className={"inline-flex items-center gap-1.5 mb-2 px-3 py-1.5 rounded-sm border-2 border-[#1C1B19] text-xs font-bold transition-all " + (watched ? "bg-[#B33A2E] text-white" : "bg-[#FBF8F1] text-[#1C1B19]")}
+              >
+                <Heart className="w-3 h-3" fill={watched ? "white" : "none"} />
+                {watched ? "Watching" : "Add to Watchlist"}
+              </button>
               <div className="font-mono-price text-4xl font-bold text-[#1C1B19]">
                 ₹{basePrice.toLocaleString("en-IN")}
               </div>
@@ -80,16 +105,7 @@ function ProductDetail() {
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 card-shadow">
             <h2 className="font-display text-lg mb-4">📈 Price History</h2>
-            <div className="space-y-3">
-              {history.map((h, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <span className="text-[#6B6357] text-sm">{h.date}</span>
-                  <span className={"font-mono-price font-bold text-sm " + (i === 0 ? "text-[#0F5C5C]" : "text-[#1C1B19]")}>
-                    ₹{h.price.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <PriceChart history={history} />
           </div>
 
           <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 card-shadow">
