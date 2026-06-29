@@ -129,22 +129,22 @@
   }
 }
 :root {
-  --paper: #F0E9D8;
-  --paper-dark: #E5DCC5;
+  --paper: #E8DCC0;
+  --paper-dark: #DCCDA8;
   --ink: #1C1B19;
-  --ink-light: #6B6357;
+  --ink-light: #5C5347;
   --marigold: #E8871E;
   --marigold-dark: #C56F12;
   --teal: #0F5C5C;
   --brick: #B33A2E;
-  --line: #C9BD9F;
+  --line: #B8A878;
 }
 
 body {
   background-color: var(--paper);
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(28,27,25,0.06) 1px, transparent 0);
-  background-size: 24px 24px;
+    radial-gradient(circle at 1px 1px, rgba(28,27,25,0.10) 1px, transparent 0);
+  background-size: 22px 22px;
   color: var(--ink);
   font-family: var(--font-body), -apple-system, sans-serif;
 }
@@ -172,4 +172,18 @@ body {
 .card-shadow-hover:hover {
   box-shadow: 5px 5px 0px 0px var(--ink);
   transform: translate(-2px, -2px);
+}
+
+.stamp {
+  position: relative;
+}
+
+.stamp::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.15;
 }

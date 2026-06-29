@@ -6,14 +6,7 @@ import Link from "next/link";
 import { Suspense, useState, useEffect } from "react";
 
 const cityPrices: Record<string, number> = {
-  Delhi: 0,
-  Mumbai: 5,
-  Bangalore: 3,
-  Chennai: 2,
-  Hyderabad: 4,
-  Pune: 1,
-  Kolkata: -2,
-  Ahmedabad: -1,
+  Delhi: 0, Mumbai: 5, Bangalore: 3, Chennai: 2, Hyderabad: 4, Pune: 1, Kolkata: -2, Ahmedabad: -1,
 };
 
 function ProductDetail() {
@@ -52,63 +45,63 @@ function ProductDetail() {
   const stores = ["Amazon", "Flipkart", "JioMart", "BigBasket"];
 
   return (
-    <main className="min-h-screen bg-[#080B0F] text-white">
+    <main className="min-h-screen bg-[#E8DCC0] text-[#1C1B19]">
       <Navbar />
       <div className="pt-24 pb-20 px-4 max-w-5xl mx-auto">
 
-        <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-6 transition-colors">
+        <Link href="/" className="inline-flex items-center gap-2 text-[#6B6357] hover:text-[#1C1B19] text-sm mb-6 font-medium transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to search
         </Link>
 
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+        <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 mb-6 card-shadow">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
-              <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full mb-3 inline-block">{category}</span>
-              <h1 className="text-3xl font-bold text-white mb-2">{name}</h1>
-              <p className="text-gray-400 text-sm max-w-lg">{description}</p>
+              <span className="text-xs font-bold uppercase tracking-wide text-[#0F5C5C] border border-[#0F5C5C] px-2 py-1 rounded-sm mb-3 inline-block">{category}</span>
+              <h1 className="font-display text-3xl mb-2">{name}</h1>
+              <p className="text-[#6B6357] text-sm max-w-lg">{description}</p>
             </div>
             <div className="text-right">
-              <div className="text-4xl font-bold text-emerald-400">
-                {"₹" + basePrice.toLocaleString("en-IN")}
+              <div className="font-mono-price text-4xl font-bold text-[#1C1B19]">
+                ₹{basePrice.toLocaleString("en-IN")}
               </div>
-              <div className="text-gray-400 text-sm">{"per " + unit}</div>
-              <div className={"flex items-center justify-end gap-1 mt-2 text-sm font-medium " + (isUp ? "text-red-400" : isDown ? "text-emerald-400" : "text-gray-400")}>
+              <div className="text-[#6B6357] text-sm">per {unit}</div>
+              <div className={"flex items-center justify-end gap-1 mt-2 text-sm font-bold " + (isUp ? "text-[#B33A2E]" : isDown ? "text-[#0F5C5C]" : "text-[#6B6357]")}>
                 {isUp ? <TrendingUp className="w-4 h-4" /> : isDown ? <TrendingDown className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
-                {Math.abs(change) + "% from last week"}
+                {Math.abs(change)}% from last week
               </div>
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-6 text-xs text-gray-500">
-            <span>Source: <span className="text-gray-300">{source}</span></span>
-            <span>Updated: <span className="text-gray-300">Just now</span></span>
+          <div className="mt-4 pt-4 ledger-line flex items-center gap-6 text-xs text-[#6B6357]">
+            <span>Source: <span className="text-[#1C1B19] font-bold">{source}</span></span>
+            <span>Updated: <span className="text-[#1C1B19] font-bold">Just now</span></span>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <h2 className="text-white font-semibold mb-4">📈 Price History</h2>
+          <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 card-shadow">
+            <h2 className="font-display text-lg mb-4">📈 Price History</h2>
             <div className="space-y-3">
               {history.map((h, i) => (
                 <div key={i} className="flex items-center justify-between">
-                  <span className="text-gray-400 text-sm">{h.date}</span>
-                  <span className={"font-semibold text-sm " + (i === 0 ? "text-emerald-400" : "text-white")}>
-                    {"₹" + h.price.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
+                  <span className="text-[#6B6357] text-sm">{h.date}</span>
+                  <span className={"font-mono-price font-bold text-sm " + (i === 0 ? "text-[#0F5C5C]" : "text-[#1C1B19]")}>
+                    ₹{h.price.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <h2 className="text-white font-semibold mb-4">🏙️ City-wise Prices</h2>
+          <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 card-shadow">
+            <h2 className="font-display text-lg mb-4">🏙️ City-wise Prices</h2>
             <div className="space-y-3">
               {Object.entries(cityPrices).map(([city, diff]) => {
                 const cityPrice = basePrice + (basePrice * diff) / 100;
                 return (
                   <div key={city} className="flex items-center justify-between">
-                    <span className="text-gray-400 text-sm">{city}</span>
-                    <span className="text-white font-semibold text-sm">
-                      {"₹" + cityPrice.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
+                    <span className="text-[#6B6357] text-sm">{city}</span>
+                    <span className="font-mono-price text-[#1C1B19] font-bold text-sm">
+                      ₹{cityPrice.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
                     </span>
                   </div>
                 );
@@ -117,52 +110,52 @@ function ProductDetail() {
           </div>
         </div>
 
-        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 mb-6">
-          <h2 className="text-white font-semibold mb-1">🤖 ML Price Prediction</h2>
-          <p className="text-gray-400 text-sm mb-4">Powered by Linear Regression trained on 12 months of Indian market data</p>
+        <div className="bg-[#1C1B19] border-2 border-[#1C1B19] rounded-sm p-6 mb-6 card-shadow">
+          <h2 className="font-display text-lg mb-1 text-[#F7F2E9]">🤖 ML Price Prediction</h2>
+          <p className="text-[#B8A878] text-sm mb-4">Powered by Linear Regression trained on 12 months of Indian market data</p>
 
           {mlData && mlData.prediction ? (
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-white/5 rounded-xl p-4">
-                <p className="text-gray-500 text-xs mb-1">Current Price</p>
-                <p className="text-white text-xl font-bold">
-                  {"₹" + mlData.prediction.current_price.toLocaleString("en-IN")}
+              <div className="bg-[#2A2823] rounded-sm p-4">
+                <p className="text-[#B8A878] text-xs mb-1">Current Price</p>
+                <p className="font-mono-price text-[#F7F2E9] text-xl font-bold">
+                  ₹{mlData.prediction.current_price.toLocaleString("en-IN")}
                 </p>
               </div>
-              <div className="bg-white/5 rounded-xl p-4">
-                <p className="text-gray-500 text-xs mb-1">Predicted (7 days)</p>
-                <p className="text-emerald-400 text-xl font-bold">
-                  {"₹" + mlData.prediction.predicted_price.toLocaleString("en-IN")}
+              <div className="bg-[#2A2823] rounded-sm p-4">
+                <p className="text-[#B8A878] text-xs mb-1">Predicted (7 days)</p>
+                <p className="font-mono-price text-[#E8871E] text-xl font-bold">
+                  ₹{mlData.prediction.predicted_price.toLocaleString("en-IN")}
                 </p>
               </div>
-              <div className="bg-white/5 rounded-xl p-4">
-                <p className="text-gray-500 text-xs mb-1">Model Confidence</p>
-                <p className="text-white text-xl font-bold">{mlData.prediction.confidence + "%"}</p>
+              <div className="bg-[#2A2823] rounded-sm p-4">
+                <p className="text-[#B8A878] text-xs mb-1">Model Confidence</p>
+                <p className="font-mono-price text-[#F7F2E9] text-xl font-bold">{mlData.prediction.confidence}%</p>
               </div>
               <div className="col-span-3 flex items-center gap-3 mt-1">
-                <span className={"text-lg font-bold " + (mlData.prediction.trend === "rising" ? "text-red-400" : mlData.prediction.trend === "falling" ? "text-emerald-400" : "text-gray-400")}>
+                <span className={"text-lg font-bold " + (mlData.prediction.trend === "rising" ? "text-[#E89B8C]" : mlData.prediction.trend === "falling" ? "text-[#6FBFBF]" : "text-[#B8A878]")}>
                   {mlData.prediction.trend === "rising" ? "📈 Price likely to Rise" : mlData.prediction.trend === "falling" ? "📉 Price likely to Fall" : "➡️ Price Stable"}
                 </span>
-                <span className="text-gray-500 text-sm">
-                  {"(" + mlData.prediction.change_percent + "% change expected in 7 days)"}
+                <span className="text-[#B8A878] text-sm">
+                  ({mlData.prediction.change_percent}% change expected in 7 days)
                 </span>
               </div>
               {mlData.alert && (
-                <div className="col-span-3 bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-red-400 text-sm">
+                <div className="col-span-3 bg-[#B33A2E]/20 border border-[#B33A2E] rounded-sm p-3 text-[#E89B8C] text-sm">
                   {mlData.alert}
                 </div>
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-gray-500 text-sm">
-              <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+            <div className="flex items-center gap-2 text-[#B8A878] text-sm">
+              <div className="w-4 h-4 border-2 border-[#E8871E] border-t-transparent rounded-full animate-spin" />
               Analyzing price trends with ML model...
             </div>
           )}
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h2 className="text-white font-semibold mb-4">🛒 Where to Buy</h2>
+        <div className="bg-[#FBF8F1] border-2 border-[#1C1B19] rounded-sm p-6 card-shadow">
+          <h2 className="font-display text-lg mb-4">🛒 Where to Buy</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {stores.map((store) => (
               <Link
@@ -170,7 +163,7 @@ function ProductDetail() {
                 href={"https://www." + store.toLowerCase() + ".com"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 rounded-xl py-3 text-sm text-gray-300 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 bg-[#F0E9D8] hover:bg-[#E8871E] border-2 border-[#1C1B19] rounded-sm py-3 text-sm font-bold text-[#1C1B19] transition-all"
               >
                 {store} <ExternalLink className="w-3 h-3" />
               </Link>
@@ -184,9 +177,5 @@ function ProductDetail() {
 }
 
 export default function ProductPage() {
-  return (
-    <Suspense>
-      <ProductDetail />
-    </Suspense>
-  );
+  return <Suspense><ProductDetail /></Suspense>;
 }

@@ -17,7 +17,7 @@ const trendingPrices = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F0E9D8] text-[#1C1B19]">
+    <main className="min-h-screen bg-[#E8DCC0] text-[#1C1B19]">
       <Navbar />
       <TrendingBar />
 

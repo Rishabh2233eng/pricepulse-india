@@ -36,22 +36,19 @@ function SearchResults() {
     const q = searchParams.get("q") || "";
     const aiRaw = searchParams.get("ai") || "";
     setQuery(q);
-
     if (aiRaw) {
       try { setAiResult(JSON.parse(decodeURIComponent(aiRaw))); } catch {}
     }
-
     if (!q) { setLoading(false); return; }
-
     setLoading(true);
-    fetch(`/api/prices?q=${encodeURIComponent(q)}`)
+    fetch("/api/prices?q=" + encodeURIComponent(q))
       .then((r) => r.json())
       .then((data) => { setResults(data.prices || []); setLoading(false); })
       .catch(() => setLoading(false));
   }, [searchParams]);
 
   return (
-    <main className="min-h-screen bg-[#080B0F] text-white">
+    <main className="min-h-screen bg-[#E8DCC0] text-[#1C1B19]">
       <Navbar />
       <div className="pt-28 pb-20 px-4 max-w-5xl mx-auto">
         <div className="mb-8">
@@ -59,46 +56,46 @@ function SearchResults() {
         </div>
 
         {aiResult && aiResult.interpreted && (
-          <div className="bg-white/5 border border-emerald-500/20 rounded-2xl p-5 mb-6 space-y-3">
-            <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm">
-              <Sparkles className="w-4 h-4" /> AI Understanding
+          <div className="bg-[#FBF8F1] border-2 border-[#0F5C5C] rounded-sm p-5 mb-6 space-y-3 card-shadow">
+            <div className="flex items-center gap-2 text-[#0F5C5C] font-bold text-sm uppercase tracking-wide">
+              <Sparkles className="w-4 h-4" /> AI Samjha Aapko
             </div>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="flex gap-2">
-                <Tag className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
+                <Tag className="w-4 h-4 text-[#6B6357] mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-gray-500 text-xs">Interpreted as</p>
-                  <p className="text-white text-sm font-medium">{aiResult.interpreted}</p>
+                  <p className="text-[#6B6357] text-xs">Interpreted as</p>
+                  <p className="text-[#1C1B19] text-sm font-bold font-display">{aiResult.interpreted}</p>
                 </div>
               </div>
               <div className="flex gap-2">
-                <TrendingUp className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
+                <TrendingUp className="w-4 h-4 text-[#6B6357] mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-gray-500 text-xs">Estimated Price Range</p>
-                  <p className="text-emerald-400 text-sm font-medium">{aiResult.priceRange}</p>
+                  <p className="text-[#6B6357] text-xs">Estimated Price Range</p>
+                  <p className="font-mono-price text-[#0F5C5C] text-sm font-bold">{aiResult.priceRange}</p>
                 </div>
               </div>
               <div className="flex gap-2">
-                <Lightbulb className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
+                <Lightbulb className="w-4 h-4 text-[#6B6357] mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-gray-500 text-xs">Buying Tip</p>
-                  <p className="text-white text-sm">{aiResult.suggestion}</p>
+                  <p className="text-[#6B6357] text-xs">Buying Tip</p>
+                  <p className="text-[#1C1B19] text-sm">{aiResult.suggestion}</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold">
-            {loading ? "Searching..." : query ? `Results for "${query}"` : "Search something above"}
+        <div className="flex items-center justify-between mb-6 ledger-line pb-3">
+          <h2 className="font-display text-xl">
+            {loading ? "Dhund rahe hai..." : query ? "Results for \"" + query + "\"" : "Search something above"}
           </h2>
-          <span className="text-xs text-gray-500">{results.length} results found</span>
+          <span className="text-xs text-[#6B6357] font-bold">{results.length} results found</span>
         </div>
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#E8871E] animate-spin" />
           </div>
         ) : (
           <div className="grid md:grid-cols-3 gap-4">
