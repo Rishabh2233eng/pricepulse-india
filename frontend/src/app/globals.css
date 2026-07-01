@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg: #0A0A0F;
-  --bg2: #12121A;
-  --bg3: #1A1A24;
-  --border: #2A2A3A;
-  --text: #F0F0FF;
-  --muted: #6B6B8A;
-  --accent: #6C63FF;
-  --accent2: #FF6B6B;
-  --green: #00D4AA;
-  --gold: #FFB800;
+@theme {
+  --color-bg: #0A0A0F;
+  --color-bg2: #12121A;
+  --color-bg3: #1A1A24;
+  --color-border: #2A2A3A;
+  --color-accent: #6C63FF;
+  --color-accent2: #FF6B6B;
+  --color-green: #00D4AA;
+  --color-gold: #FFB800;
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body), -apple-system, sans-serif;
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0A0A0F;
+  color: #F0F0FF;
+  font-family: var(--font-body), Inter, -apple-system, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .font-display {
@@ -38,12 +44,70 @@ body {
   backdrop-filter: blur(12px);
 }
 
-.glow {
-  box-shadow: 0 0 30px rgba(108,99,255,0.15);
+.price-card {
+  background: #12121A;
+  border: 1px solid #2A2A3A;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
-.glow-green {
-  box-shadow: 0 0 20px rgba(0,212,170,0.2);
+.price-card:hover {
+  border-color: #6C63FF;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(108,99,255,0.15);
+}
+
+.btn-primary {
+  background: #6C63FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #5A52E0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tag {
+  background: rgba(108,99,255,0.15);
+  color: #6C63FF;
+  border: 1px solid rgba(108,99,255,0.3);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-green {
+  background: rgba(0,212,170,0.1);
+  color: #00D4AA;
+  border-color: rgba(0,212,170,0.3);
+}
+
+.tag-red {
+  background: rgba(255,107,107,0.1);
+  color: #FF6B6B;
+  border-color: rgba(255,107,107,0.3);
+}
+
+.tag-gold {
+  background: rgba(255,184,0,0.1);
+  color: #FFB800;
+  border-color: rgba(255,184,0,0.3);
 }
 
 @keyframes ticker {
@@ -69,90 +133,12 @@ body {
   opacity: 0;
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.skeleton {
-  background: linear-gradient(90deg, #1A1A24 25%, #22223A 50%, #1A1A24 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
-}
-
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-.price-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.price-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(108,99,255,0.15);
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: #5A52E0;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(108,99,255,0.4);
-}
-
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.tag {
-  background: rgba(108,99,255,0.15);
-  color: var(--accent);
-  border: 1px solid rgba(108,99,255,0.3);
-  border-radius: 20px;
-  padding: 2px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.tag-green {
-  background: rgba(0,212,170,0.1);
-  color: var(--green);
-  border-color: rgba(0,212,170,0.3);
-}
-
-.tag-red {
-  background: rgba(255,107,107,0.1);
-  color: var(--accent2);
-  border-color: rgba(255,107,107,0.3);
-}
-
-.tag-gold {
-  background: rgba(255,184,0,0.1);
-  color: var(--gold);
-  border-color: rgba(255,184,0,0.3);
-}
-
-@keyframes pulse {
+@keyframes pulse-anim {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
 
-.pulse { animation: pulse 2s ease infinite; }
+.pulse { animation: pulse-anim 2s ease infinite; }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
