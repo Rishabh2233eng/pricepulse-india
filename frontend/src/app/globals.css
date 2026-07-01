@@ -1,56 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --paper: #E8DCC0;
-  --paper-dark: #DCCDA8;
-  --ink: #1C1B19;
-  --ink-light: #5C5347;
-  --marigold: #E8871E;
-  --marigold-dark: #C56F12;
-  --teal: #0F5C5C;
-  --brick: #B33A2E;
-  --line: #B8A878;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-  box-sizing: border-box;
+:root {
+  --bg: #0A0A0F;
+  --bg2: #12121A;
+  --bg3: #1A1A24;
+  --border: #2A2A3A;
+  --text: #F0F0FF;
+  --muted: #6B6B8A;
+  --accent: #6C63FF;
+  --accent2: #FF6B6B;
+  --green: #00D4AA;
+  --gold: #FFB800;
 }
 
 body {
-  background-color: var(--paper);
-  background-image: radial-gradient(circle at 1px 1px, rgba(28,27,25,0.10) 1px, transparent 0);
-  background-size: 22px 22px;
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-body), -apple-system, sans-serif;
+  min-height: 100vh;
 }
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 800;
-  letter-spacing: -0.01em;
 }
 
 .font-mono-price {
-  font-family: var(--font-mono), 'Courier New', monospace;
+  font-family: var(--font-mono), monospace;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
 }
 
-.ledger-line {
-  border-bottom: 1px dashed var(--line);
+.glass {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
 }
 
-.card-shadow {
-  box-shadow: 3px 3px 0px 0px var(--ink);
+.glow {
+  box-shadow: 0 0 30px rgba(108,99,255,0.15);
 }
 
-.card-shadow-hover:hover {
-  box-shadow: 6px 6px 0px 0px var(--ink);
-  transform: translate(-2px, -2px);
-}
-
-.card-shadow-lg {
-  box-shadow: 5px 5px 0px 0px var(--ink);
+.glow-green {
+  box-shadow: 0 0 20px rgba(0,212,170,0.2);
 }
 
 @keyframes ticker {
@@ -59,33 +52,107 @@ body {
 }
 
 .ticker-animate {
-  animation: ticker 30s linear infinite;
+  animation: ticker 25s linear infinite;
   display: flex;
   width: max-content;
 }
 
-.ticker-animate:hover {
-  animation-play-state: paused;
-}
+.ticker-animate:hover { animation-play-state: paused; }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in-up {
-  animation: fadeInUp 0.4s ease forwards;
+.fade-up {
+  animation: fadeUp 0.5s ease forwards;
+  opacity: 0;
 }
 
-@keyframes pulse-dot {
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1A1A24 25%, #22223A 50%, #1A1A24 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.price-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.price-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(108,99,255,0.15);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #5A52E0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tag {
+  background: rgba(108,99,255,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(108,99,255,0.3);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-green {
+  background: rgba(0,212,170,0.1);
+  color: var(--green);
+  border-color: rgba(0,212,170,0.3);
+}
+
+.tag-red {
+  background: rgba(255,107,107,0.1);
+  color: var(--accent2);
+  border-color: rgba(255,107,107,0.3);
+}
+
+.tag-gold {
+  background: rgba(255,184,0,0.1);
+  color: var(--gold);
+  border-color: rgba(255,184,0,0.3);
+}
+
+@keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
 
-.pulse-dot {
-  animation: pulse-dot 1.5s ease infinite;
-}
-
-scrollbar-width: none;
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.pulse { animation: pulse 2s ease infinite; }
