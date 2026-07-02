@@ -29,9 +29,6 @@ def get_cached(key):
 
 def set_cached(key, data):
     cache = load_cache()
-    cache[key] = {
-        "timestamp": time.time(),
-        "data": data
-    }
+    cache[key] = {"timestamp": time.time(), "data": data}
     save_cache(cache)
     print(f"Cache SET: {key}")

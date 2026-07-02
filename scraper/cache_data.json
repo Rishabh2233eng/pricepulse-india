@@ -1,0 +1,39 @@
+{
+  "phone_ac_under_35000": {
+    "timestamp": 1783025584.3156643,
+    "data": [
+      {
+        "name": "Motorola Edge 50 Fusion 256GB",
+        "price": "22999",
+        "unit": "piece",
+        "change": -2,
+        "source": "Flipkart",
+        "category": "Smartphone",
+        "description": "Motorola Edge 50 Fusion 256GB - Latest price in India."
+      }
+    ]
+  },
+  "vehicle_toyota_fortuner": {
+    "timestamp": 1783025600.799014,
+    "data": [
+      {
+        "name": "Toyota Innova Crysta GX",
+        "price": "1999000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Toyota India",
+        "category": "Car",
+        "description": "Toyota Innova Crysta GX ex-showroom price Delhi."
+      },
+      {
+        "name": "Toyota Fortuner 4x2 AT",
+        "price": "3299000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Toyota India",
+        "category": "Car",
+        "description": "Toyota Fortuner 4x2 AT ex-showroom price Delhi."
+      }
+    ]
+  }
+}
