@@ -1,7 +1,7 @@
 "use client";
 import { TrendingUp, TrendingDown, Minus, Share2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface PriceCardProps {
   name: string;
@@ -12,30 +12,30 @@ interface PriceCardProps {
   category: string;
   description?: string;
   index?: number;
-  showImage?: boolean;
 }
 
-const categoryEmojis: Record<string, string> = {
-  Smartphone: "📱", Laptop: "💻", Car: "🚗", Bike: "🏍️",
-  Vegetable: "🥦", Fruit: "🍎", "Dry Fruit": "🥜", Grocery: "🛒",
-  Fuel: "⛽", Commodity: "🥇", Electronics: "📺", Appliance: "❄️",
-  Medicine: "💊", "Real Estate": "🏠",
+const categoryColors: Record<string, string> = {
+  Vegetable: "#DCFCE7", Fruit: "#FEF9C3", "Dry Fruit": "#FEF3C7",
+  Fuel: "#FEE2E2", Commodity: "#FEF9C3", Smartphone: "#DBEAFE",
+  Laptop: "#EDE9FE", Car: "#FCE7F3", Bike: "#FFEDD5",
+  Electronics: "#DBEAFE", Appliance: "#E0F2FE", Medicine: "#DCFCE7",
+  Grocery: "#F3F4F6", "Real Estate": "#FEE2E2",
 };
 
-export default function PriceCard({ name, price, unit, change, source, category, description, index = 0, showImage = false }: PriceCardProps) {
+const categoryTextColors: Record<string, string> = {
+  Vegetable: "#166534", Fruit: "#854D0E", "Dry Fruit": "#92400E",
+  Fuel: "#991B1B", Commodity: "#854D0E", Smartphone: "#1E40AF",
+  Laptop: "#5B21B6", Car: "#9D174D", Bike: "#9A3412",
+  Electronics: "#1E40AF", Appliance: "#075985", Medicine: "#166534",
+  Grocery: "#374151", "Real Estate": "#991B1B",
+};
+
+export default function PriceCard({ name, price, unit, change, source, category, description, index = 0 }: PriceCardProps) {
   const isUp = change > 0;
   const isDown = change < 0;
   const router = useRouter();
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [sharing, setSharing] = useState(false);
-
-  useEffect(() => {
-    if (!showImage) return;
-    fetch("/api/image?q=" + encodeURIComponent(name))
-      .then((r) => r.json())
-      .then((data) => { if (data.url) setImgUrl(data.url); })
-      .catch(() => {});
-  }, [name, showImage]);
+  const [hovered, setHovered] = useState(false);
 
   const handleClick = () => {
     const slug = name.toLowerCase().replace(/\s+/g, "-");
@@ -57,63 +57,56 @@ export default function PriceCard({ name, price, unit, change, source, category,
     setSharing(false);
   };
 
-  const emoji = categoryEmojis[category] || "📦";
+  const bgColor = categoryColors[category] || "#F3F4F6";
+  const textColor = categoryTextColors[category] || "#374151";
 
   return (
     <div
       onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        animationDelay: index * 60 + "ms",
-        background: "#12121A",
-        border: "1px solid #2A2A3A",
-        borderRadius: 16,
-        padding: 20,
+        animationDelay: index * 50 + "ms",
+        background: "#fff",
+        border: "1px solid " + (hovered ? "#00B386" : "#E5E5E0"),
+        borderRadius: 8,
+        padding: 16,
         cursor: "pointer",
         transition: "all 0.2s ease",
+        transform: hovered ? "translateY(-2px)" : "none",
+        boxShadow: hovered ? "0 4px 16px rgba(0,179,134,0.1)" : "0 1px 3px rgba(0,0,0,0.04)",
         position: "relative",
         overflow: "hidden",
       }}
-      className="fade-up price-card group"
+      className="fade-up"
     >
-      {/* Image or Emoji */}
-      {showImage && imgUrl ? (
-        <div style={{ width: "100%", height: 140, borderRadius: 10, overflow: "hidden", background: "#1A1A24", marginBottom: 16 }}>
-          <img src={imgUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 8 }}
-            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-        </div>
-      ) : (
-        <div style={{ fontSize: 32, marginBottom: 12 }}>{emoji}</div>
-      )}
-
-      {/* Category + Change */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-        <span className="tag">{category}</span>
-        <div className={isUp ? "tag-red" : isDown ? "tag-green" : ""} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 20, background: isUp ? "rgba(255,107,107,0.1)" : isDown ? "rgba(0,212,170,0.1)" : "rgba(255,255,255,0.05)", color: isUp ? "#FF6B6B" : isDown ? "#00D4AA" : "#6B6B8A", border: isUp ? "1px solid rgba(255,107,107,0.3)" : isDown ? "1px solid rgba(0,212,170,0.3)" : "1px solid rgba(255,255,255,0.1)" }}>
-          {isUp ? <TrendingUp size={10} /> : isDown ? <TrendingDown size={10} /> : <Minus size={10} />}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+        <span style={{ background: bgColor, color: textColor, fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", padding: "2px 8px", borderRadius: 4 }}>
+          {category}
+        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 11, fontWeight: 700, color: isUp ? "#EF4444" : isDown ? "#00B386" : "#9CA3AF" }}>
+          {isUp ? <TrendingUp size={11} /> : isDown ? <TrendingDown size={11} /> : <Minus size={11} />}
           {change !== 0 ? Math.abs(change) + "%" : "stable"}
         </div>
       </div>
 
-      {/* Name */}
-      <h3 style={{ color: "#F0F0FF", fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>{name}</h3>
-      {description && <p style={{ color: "#6B6B8A", fontSize: 12, marginBottom: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{description}</p>}
+      <h3 style={{ fontSize: 14, fontWeight: 600, color: "#1C1C1C", marginBottom: 4, lineHeight: 1.3 }}>{name}</h3>
+      {description && <p style={{ fontSize: 11, color: "#9CA3AF", marginBottom: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{description}</p>}
 
-      {/* Price */}
-      <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 16 }}>
-        <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 22, fontWeight: 700, color: "#fff" }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 12 }}>
+        <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: 20, fontWeight: 700, color: "#1C1C1C" }}>
           ₹{Number(price).toLocaleString("en-IN")}
         </span>
-        <span style={{ color: "#6B6B8A", fontSize: 12 }}>/ {unit}</span>
+        <span style={{ color: "#9CA3AF", fontSize: 11 }}>/ {unit}</span>
       </div>
 
-      {/* Footer */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 12, borderTop: "1px solid #2A2A3A" }}>
-        <span style={{ color: "#6B6B8A", fontSize: 12 }}>📍 {source}</span>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10, borderTop: "1px solid #F0F0EB" }}>
+        <span style={{ color: "#9CA3AF", fontSize: 11 }}>📍 {source}</span>
         <button
           onClick={handleShare}
-          style={{ display: "flex", alignItems: "center", gap: 6, background: "#25D366", border: "none", borderRadius: 8, padding: "4px 10px", cursor: "pointer", fontSize: 11, fontWeight: 700, color: "#fff" }}
+          style={{ display: "flex", alignItems: "center", gap: 4, background: "#25D366", border: "none", borderRadius: 4, padding: "3px 8px", cursor: "pointer", fontSize: 10, fontWeight: 700, color: "#fff", opacity: sharing ? 0.7 : 1 }}
         >
-          <Share2 size={10} />
+          <Share2 size={9} />
           {sharing ? "..." : "WhatsApp"}
         </button>
       </div>

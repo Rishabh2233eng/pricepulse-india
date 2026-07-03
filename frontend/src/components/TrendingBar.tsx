@@ -1,40 +1,38 @@
 "use client";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const trending = [
-  { name: "Tomato", price: "42", change: -12 },
-  { name: "Gold 24K", price: "7,240", change: 1.2 },
-  { name: "Petrol Delhi", price: "94.77", change: 0 },
-  { name: "Onion", price: "28", change: -5 },
-  { name: "iPhone 16", price: "79,900", change: -1 },
-  { name: "Silver", price: "89,500", change: 2.1 },
-  { name: "Diesel Delhi", price: "87.67", change: 0 },
-  { name: "Redmi Note 14", price: "19,999", change: -1 },
-  { name: "Royal Enfield 350", price: "1,93,079", change: 2 },
-  { name: "Maruti Swift", price: "6,99,000", change: 1 },
-  { name: "CNG Delhi", price: "74.09", change: -2 },
-  { name: "Potato", price: "22", change: 3 },
+const items = [
+  { name: "Tomato", price: "42", unit: "kg", change: -12 },
+  { name: "Gold 24K", price: "7,240", unit: "g", change: 1.2 },
+  { name: "Petrol Delhi", price: "94.77", unit: "L", change: 0 },
+  { name: "Onion", price: "28", unit: "kg", change: -5 },
+  { name: "iPhone 16", price: "79,900", unit: "pc", change: -1 },
+  { name: "Silver", price: "89,500", unit: "kg", change: 2.1 },
+  { name: "Diesel Delhi", price: "87.67", unit: "L", change: 0 },
+  { name: "RE Classic 350", price: "1,93,079", unit: "pc", change: 2 },
+  { name: "Maruti Swift", price: "6,99,000", unit: "pc", change: 1 },
+  { name: "CNG Delhi", price: "74.09", unit: "kg", change: -2 },
+  { name: "Cashew W240", price: "850", unit: "kg", change: 2 },
+  { name: "Mango Alphonso", price: "350", unit: "kg", change: 5 },
 ];
 
 export default function TrendingBar() {
   const router = useRouter();
-  const doubled = [...trending, ...trending];
+  const doubled = [...items, ...items];
 
   return (
-    <div className="w-full bg-[#0D0D16] border-b border-white/5 py-2.5 overflow-hidden mt-16">
-      <div className="ticker-animate gap-0">
+    <div className="ticker-bar" style={{ marginTop: 52 }}>
+      <div className="ticker-animate">
         {doubled.map((item, i) => (
           <button
             key={i}
             onClick={() => router.push("/search?q=" + encodeURIComponent(item.name))}
-            className="flex items-center gap-2 whitespace-nowrap text-xs px-5 border-r border-white/5 hover:bg-white/5 transition-colors py-1 shrink-0"
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "0 16px", background: "none", border: "none", cursor: "pointer", borderRight: "1px solid #2A2A2A", whiteSpace: "nowrap" }}
           >
-            <span className="text-[#9090B0]">{item.name}</span>
-            <span className="font-mono-price text-white font-bold">₹{item.price}</span>
-            <span className={item.change > 0 ? "text-[#FF6B6B]" : item.change < 0 ? "text-[#00D4AA]" : "text-[#6B6B8A]"}>
-              {item.change > 0 ? <TrendingUp className="w-3 h-3 inline" /> : item.change < 0 ? <TrendingDown className="w-3 h-3 inline" /> : <Minus className="w-3 h-3 inline" />}
-              {" "}{item.change !== 0 ? Math.abs(item.change) + "%" : ""}
+            <span style={{ color: "#9CA3AF", fontSize: 11 }}>{item.name}</span>
+            <span style={{ color: "#F0B429", fontSize: 11, fontWeight: 700, fontFamily: "monospace" }}>₹{item.price}</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: item.change > 0 ? "#EF4444" : item.change < 0 ? "#00B386" : "#6B7280" }}>
+              {item.change > 0 ? "▲" : item.change < 0 ? "▼" : "—"}{item.change !== 0 ? Math.abs(item.change) + "%" : ""}
             </span>
           </button>
         ))}

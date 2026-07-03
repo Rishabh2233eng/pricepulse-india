@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Loader2, Sparkles } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
-export default function SearchBar({ large = false }: { large?: boolean }) {
+export default function SearchBar({ autoFocus = false }: { autoFocus?: boolean }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -31,43 +31,38 @@ export default function SearchBar({ large = false }: { large?: boolean }) {
     }
   };
 
-  const suggestions = ["cheapest phone under 15k", "gold price today", "petrol Mumbai", "MacBook Air", "Royal Enfield", "AC under 35000"];
-
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <form onSubmit={handleSearch}>
-        <div className="relative flex items-center bg-[#12121A] border border-[#2A2A3A] rounded-2xl focus-within:border-[#6C63FF] focus-within:shadow-[0_0_0_3px_rgba(108,99,255,0.15)] transition-all">
-          <div className="pl-5 text-[#6B6B8A]">
-            {loading ? <Loader2 className="w-5 h-5 animate-spin text-[#6C63FF]" /> : <Search className="w-5 h-5" />}
-          </div>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search any product — phones, vegetables, gold, bikes, cars..."
-            className={"w-full bg-transparent px-4 text-white placeholder-[#6B6B8A] focus:outline-none " + (large ? "py-5 text-base" : "py-4 text-sm")}
-          />
-          <button
-            type="submit"
-            disabled={loading || !query.trim()}
-            className="m-2 px-5 py-2.5 btn-primary text-sm flex items-center gap-2"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            {loading ? "Searching..." : "Search"}
-          </button>
+    <form onSubmit={handleSearch} style={{ width: "100%" }}>
+      <div style={{ display: "flex", alignItems: "center", background: "#fff", border: "1.5px solid #E5E5E0", borderRadius: 8, overflow: "hidden", transition: "all 0.2s", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+        <div style={{ padding: "0 14px", color: loading ? "#00B386" : "#9CA3AF" }}>
+          {loading ? <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} /> : <Search size={16} />}
         </div>
-      </form>
-      <div className="flex flex-wrap gap-2 mt-3 justify-center">
-        {suggestions.map((s) => (
-          <button
-            key={s}
-            onClick={() => { setQuery(s); }}
-            className="text-xs px-3 py-1.5 bg-[#1A1A24] hover:bg-[#6C63FF]/20 text-[#6B6B8A] hover:text-[#6C63FF] border border-[#2A2A3A] hover:border-[#6C63FF]/30 rounded-full transition-all"
-          >
+        <input
+          autoFocus={autoFocus}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search any product — tomato, gold, petrol, iPhone, Tata Nexon, cashew..."
+          style={{ flex: 1, border: "none", outline: "none", padding: "12px 0", fontSize: 14, color: "#1C1C1C", background: "transparent" }}
+        />
+        <button
+          type="submit"
+          disabled={loading || !query.trim()}
+          style={{ margin: 6, padding: "8px 20px", background: "#00B386", color: "#fff", border: "none", borderRadius: 6, fontSize: 13, fontWeight: 700, cursor: "pointer", opacity: loading || !query.trim() ? 0.5 : 1, transition: "all 0.15s" }}
+        >
+          Search
+        </button>
+      </div>
+      <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
+        {["mango", "gold", "petrol", "iphone 16", "royal enfield", "tata nexon", "cashew"].map((s) => (
+          <button key={s} type="button" onClick={() => setQuery(s)}
+            style={{ fontSize: 11, padding: "3px 10px", border: "1px solid #E5E5E0", borderRadius: 20, background: "#fff", color: "#6B6B6B", cursor: "pointer", transition: "all 0.15s" }}
+            onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = "#00B386"; (e.target as HTMLElement).style.color = "#00B386"; }}
+            onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = "#E5E5E0"; (e.target as HTMLElement).style.color = "#6B6B6B"; }}>
             {s}
           </button>
         ))}
       </div>
-    </div>
+    </form>
   );
 }

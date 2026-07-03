@@ -1,34 +1,52 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const categories = [
-  { name: "Vegetables", emoji: "🥦", query: "tomato", color: "#00D4AA" },
-  { name: "Fuel", emoji: "⛽", query: "petrol", color: "#FFB800" },
-  { name: "Gold & Silver", emoji: "🥇", query: "gold", color: "#FFB800" },
-  { name: "Smartphones", emoji: "📱", query: "phone", color: "#6C63FF" },
-  { name: "Laptops", emoji: "💻", query: "laptop", color: "#6C63FF" },
-  { name: "Bikes", emoji: "🏍️", query: "bike", color: "#FF6B6B" },
-  { name: "Cars", emoji: "🚗", query: "car", color: "#FF6B6B" },
-  { name: "Grocery", emoji: "🛒", query: "dal", color: "#00D4AA" },
-  { name: "Electronics", emoji: "📺", query: "samsung tv", color: "#6C63FF" },
-  { name: "Appliances", emoji: "❄️", query: "ac", color: "#00D4AA" },
-  { name: "Real Estate", emoji: "🏠", query: "rent delhi", color: "#FFB800" },
-  { name: "Medicines", emoji: "💊", query: "paracetamol", color: "#FF6B6B" },
+  { name: "Vegetables", emoji: "🥦", query: "tomato", color: "#DCFCE7", text: "#166534" },
+  { name: "Fruits", emoji: "🍎", query: "mango", color: "#FEF9C3", text: "#854D0E" },
+  { name: "Dry Fruits", emoji: "🥜", query: "cashew", color: "#FEF3C7", text: "#92400E" },
+  { name: "Fuel", emoji: "⛽", query: "petrol", color: "#FEE2E2", text: "#991B1B" },
+  { name: "Gold & Silver", emoji: "🥇", query: "gold", color: "#FEF9C3", text: "#854D0E" },
+  { name: "Smartphones", emoji: "📱", query: "phone", color: "#DBEAFE", text: "#1E40AF" },
+  { name: "Laptops", emoji: "💻", query: "laptop", color: "#EDE9FE", text: "#5B21B6" },
+  { name: "Bikes", emoji: "🏍️", query: "royal enfield", color: "#FFEDD5", text: "#9A3412" },
+  { name: "Cars", emoji: "🚗", query: "tata nexon", color: "#FCE7F3", text: "#9D174D" },
+  { name: "Electronics", emoji: "📺", query: "samsung tv", color: "#DBEAFE", text: "#1E40AF" },
+  { name: "Appliances", emoji: "❄️", query: "ac", color: "#E0F2FE", text: "#075985" },
+  { name: "Grocery", emoji: "🛒", query: "dal", color: "#F3F4F6", text: "#374151" },
 ];
 
 export default function CategoryGrid() {
   const router = useRouter();
+  const [hovered, setHovered] = useState<string | null>(null);
+
   return (
-    <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 8 }}>
       {categories.map((cat, i) => (
         <button
           key={cat.name}
           onClick={() => router.push("/search?q=" + encodeURIComponent(cat.query))}
-          style={{ animationDelay: i * 40 + "ms", "--cat-color": cat.color } as any}
-          className="fade-up bg-[#12121A] border border-[#2A2A3A] hover:border-[--cat-color] rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-200 hover:-translate-y-1 group"
+          onMouseEnter={() => setHovered(cat.name)}
+          onMouseLeave={() => setHovered(null)}
+          style={{
+            animationDelay: i * 30 + "ms",
+            background: hovered === cat.name ? cat.color : "#fff",
+            border: "1px solid " + (hovered === cat.name ? cat.text + "40" : "#E5E5E0"),
+            borderRadius: 8,
+            padding: "12px 8px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 6,
+            cursor: "pointer",
+            transition: "all 0.15s ease",
+            transform: hovered === cat.name ? "translateY(-2px)" : "none",
+          }}
+          className="fade-up"
         >
-          <span className="text-2xl group-hover:scale-110 transition-transform duration-200">{cat.emoji}</span>
-          <span className="text-[#9090B0] group-hover:text-white text-xs font-medium text-center leading-tight transition-colors">{cat.name}</span>
+          <span style={{ fontSize: 22 }}>{cat.emoji}</span>
+          <span style={{ fontSize: 10, fontWeight: 600, color: hovered === cat.name ? cat.text : "#6B6B6B", textAlign: "center", lineHeight: 1.2 }}>{cat.name}</span>
         </button>
       ))}
     </div>

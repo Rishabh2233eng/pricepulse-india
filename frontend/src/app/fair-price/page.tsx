@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import TrendingBar from "@/components/TrendingBar";
 import { ShieldCheck, AlertTriangle, ThumbsUp, Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -29,46 +30,50 @@ export default function FairPricePage() {
   };
 
   const verdictConfig: Record<string, any> = {
-    fair: { color: "text-[#00D4AA]", bg: "border-[#00D4AA]/30 bg-[#00D4AA]/5", icon: <ShieldCheck className="w-8 h-8 text-[#00D4AA]" />, label: "✅ Fair Price" },
-    overcharged: { color: "text-[#FF6B6B]", bg: "border-[#FF6B6B]/30 bg-[#FF6B6B]/5", icon: <AlertTriangle className="w-8 h-8 text-[#FF6B6B]" />, label: "🚨 You Were Overcharged!" },
-    "great deal": { color: "text-[#6C63FF]", bg: "border-[#6C63FF]/30 bg-[#6C63FF]/5", icon: <ThumbsUp className="w-8 h-8 text-[#6C63FF]" />, label: "🎉 Great Deal!" },
+    fair: { color: "#00B386", bg: "#DCFCE7", border: "#86EFAC", icon: <ShieldCheck size={28} color="#00B386" />, label: "✅ Fair Price" },
+    overcharged: { color: "#EF4444", bg: "#FEE2E2", border: "#FCA5A5", icon: <AlertTriangle size={28} color="#EF4444" />, label: "🚨 You Were Overcharged!" },
+    "great deal": { color: "#F0B429", bg: "#FEF9C3", border: "#FDE047", icon: <ThumbsUp size={28} color="#F0B429" />, label: "🎉 Great Deal!" },
   };
 
   const v = result ? (verdictConfig[result.verdict] || verdictConfig["fair"]) : null;
 
+  const inputStyle = { width: "100%", border: "1.5px solid #E5E5E0", borderRadius: 8, padding: "10px 14px", fontSize: 14, color: "#1C1C1C", outline: "none", background: "#fff", transition: "border-color 0.15s" };
+
   return (
-    <main className="min-h-screen bg-[#0A0A0F]">
+    <main style={{ minHeight: "100vh", background: "#F5F5F0" }}>
       <Navbar />
-      <div className="pt-24 pb-20 px-6 max-w-2xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-2 text-[#6B6B8A] hover:text-white text-sm mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back
+      <TrendingBar />
+      <div style={{ maxWidth: 680, margin: "0 auto", padding: "24px 20px" }}>
+        <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#9CA3AF", textDecoration: "none", fontSize: 13, marginBottom: 20 }}>
+          <ArrowLeft size={14} /> Back to Markets
         </Link>
 
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-[#FF6B6B]/10 border border-[#FF6B6B]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <ShieldCheck className="w-8 h-8 text-[#FF6B6B]" />
+        <div style={{ background: "#EF4444", borderRadius: 10, padding: "24px", marginBottom: 20, display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ width: 48, height: 48, background: "rgba(255,255,255,0.2)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <ShieldCheck size={24} color="#fff" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-3">Am I Being Cheated?</h1>
-          <p className="text-[#6B6B8A]">Enter what you paid — AI tells you if it was fair</p>
+          <div>
+            <h1 style={{ color: "#fff", fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Am I Being Cheated?</h1>
+            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 13 }}>Enter what you paid — AI tells you if it was fair against real Indian market prices</p>
+          </div>
         </div>
 
-        <div className="glass rounded-2xl p-6 mb-6">
-          <form onSubmit={handleCheck} className="space-y-4">
-            <div>
-              <label className="text-[#6B6B8A] text-sm mb-2 block">What did you buy?</label>
-              <input type="text" value={product} onChange={(e) => setProduct(e.target.value)} placeholder="e.g. Tomato, Onion, iPhone 15, Petrol..."
-                className="w-full bg-[#0A0A0F] border border-[#2A2A3A] rounded-xl px-4 py-3 text-white placeholder-[#6B6B8A] focus:outline-none focus:border-[#6C63FF] transition-all" />
+        <div style={{ background: "#fff", border: "1px solid #E5E5E0", borderRadius: 10, padding: 24, marginBottom: 16 }}>
+          <form onSubmit={handleCheck}>
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#6B6B6B", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>What did you buy?</label>
+              <input type="text" value={product} onChange={(e) => setProduct(e.target.value)} placeholder="e.g. Tomato, Onion, iPhone 15, Petrol..." style={inputStyle}
+                onFocus={e => (e.target.style.borderColor = "#00B386")} onBlur={e => (e.target.style.borderColor = "#E5E5E0")} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
               <div>
-                <label className="text-[#6B6B8A] text-sm mb-2 block">Price you paid (₹)</label>
-                <input type="number" value={pricePaid} onChange={(e) => setPricePaid(e.target.value)} placeholder="e.g. 80"
-                  className="w-full bg-[#0A0A0F] border border-[#2A2A3A] rounded-xl px-4 py-3 text-white placeholder-[#6B6B8A] focus:outline-none focus:border-[#6C63FF] transition-all font-mono-price" />
+                <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#6B6B6B", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>Price you paid (₹)</label>
+                <input type="number" value={pricePaid} onChange={(e) => setPricePaid(e.target.value)} placeholder="e.g. 80" style={{ ...inputStyle, fontFamily: "monospace" }}
+                  onFocus={e => (e.target.style.borderColor = "#00B386")} onBlur={e => (e.target.style.borderColor = "#E5E5E0")} />
               </div>
               <div>
-                <label className="text-[#6B6B8A] text-sm mb-2 block">Unit</label>
-                <select value={unit} onChange={(e) => setUnit(e.target.value)}
-                  className="w-full bg-[#0A0A0F] border border-[#2A2A3A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#6C63FF] transition-all">
+                <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#6B6B6B", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>Unit</label>
+                <select value={unit} onChange={(e) => setUnit(e.target.value)} style={{ ...inputStyle }}>
                   <option value="kg">per kg</option>
                   <option value="litre">per litre</option>
                   <option value="gram">per gram</option>
@@ -77,49 +82,53 @@ export default function FairPricePage() {
                 </select>
               </div>
             </div>
-            <button type="submit" disabled={loading || !product || !pricePaid} className="w-full py-3.5 btn-primary text-sm flex items-center justify-center gap-2">
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Checking...</> : "Check Now 🔍"}
+            <button type="submit" disabled={loading || !product || !pricePaid}
+              style={{ width: "100%", padding: "12px", background: "#EF4444", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: "pointer", opacity: loading || !product || !pricePaid ? 0.5 : 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+              {loading ? <><Loader2 size={14} style={{ animation: "spin 1s linear infinite" }} /> Checking...</> : "Check Price 🔍"}
             </button>
           </form>
         </div>
 
-        {result && v && (
-          <div className={"border rounded-2xl p-6 space-y-5 " + v.bg}>
-            <div className="flex items-center gap-4">
-              {v.icon}
-              <div>
-                <h2 className={"text-2xl font-bold " + v.color}>{v.label}</h2>
-                <p className="text-[#9090B0] text-sm mt-1">{result.message}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { label: "You Paid", value: "₹" + pricePaid, color: "text-white" },
-                { label: "Market Price", value: "₹" + result.marketPrice, color: "text-[#00D4AA]" },
-                { label: "Difference", value: (result.percentageDiff > 0 ? "+" : "") + result.percentageDiff + "%", color: v.color },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-white/5 rounded-xl p-4 text-center">
-                  <p className="text-[#6B6B8A] text-xs mb-1">{stat.label}</p>
-                  <p className={"font-mono-price font-bold text-lg " + stat.color}>{stat.value}</p>
-                </div>
-              ))}
-            </div>
-            <div className="bg-white/5 rounded-xl p-4">
-              <p className="text-[#6B6B8A] text-xs mb-1 font-bold">💡 Buying Tip</p>
-              <p className="text-white text-sm">{result.tip}</p>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-8 grid grid-cols-3 gap-3">
+        {/* Quick examples */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 20 }}>
           {[{ product: "Tomato", price: "80", unit: "kg" }, { product: "Petrol", price: "100", unit: "litre" }, { product: "iPhone 15", price: "90000", unit: "piece" }].map((ex) => (
             <button key={ex.product} onClick={() => { setProduct(ex.product); setPricePaid(ex.price); setUnit(ex.unit); }}
-              className="glass hover:border-[#6C63FF]/30 rounded-xl p-3 text-left transition-all">
-              <p className="text-white text-sm font-bold">{ex.product}</p>
-              <p className="text-[#6B6B8A] text-xs font-mono-price">₹{ex.price} / {ex.unit}</p>
+              style={{ background: "#fff", border: "1px solid #E5E5E0", borderRadius: 8, padding: "10px 12px", textAlign: "left", cursor: "pointer", transition: "all 0.15s" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "#EF4444"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E5E5E0"; }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#1C1C1C" }}>{ex.product}</div>
+              <div style={{ fontSize: 11, color: "#9CA3AF", fontFamily: "monospace" }}>₹{ex.price} / {ex.unit}</div>
             </button>
           ))}
         </div>
+
+        {result && v && (
+          <div style={{ border: "1.5px solid " + v.border, borderRadius: 10, padding: 20, background: v.bg }} className="fade-in">
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              {v.icon}
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: v.color }}>{v.label}</div>
+                <div style={{ fontSize: 13, color: "#374151", marginTop: 2 }}>{result.message}</div>
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 14 }}>
+              {[
+                { label: "You Paid", value: "₹" + pricePaid, color: "#1C1C1C" },
+                { label: "Market Price", value: "₹" + result.marketPrice, color: "#00B386" },
+                { label: "Difference", value: (result.percentageDiff > 0 ? "+" : "") + result.percentageDiff + "%", color: v.color },
+              ].map((s) => (
+                <div key={s.label} style={{ background: "#fff", borderRadius: 8, padding: "12px", textAlign: "center", border: "1px solid #E5E5E0" }}>
+                  <div style={{ fontSize: 10, color: "#9CA3AF", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: s.color, fontFamily: "monospace" }}>{s.value}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: "#fff", borderRadius: 8, padding: 12, border: "1px solid #E5E5E0" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>💡 Buying Tip</div>
+              <div style={{ fontSize: 13, color: "#1C1C1C" }}>{result.tip}</div>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );

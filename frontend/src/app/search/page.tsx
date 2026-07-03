@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import PriceCard from "@/components/PriceCard";
 import SearchBar from "@/components/SearchBar";
+import TrendingBar from "@/components/TrendingBar";
 import { Loader2, Sparkles, Tag, TrendingUp, Lightbulb } from "lucide-react";
 
 interface Price { name: string; price: string; unit: string; change: number; source: string; category: string; description: string; }
@@ -30,56 +31,62 @@ function SearchResults() {
   }, [searchParams]);
 
   return (
-    <main className="min-h-screen bg-[#0A0A0F]">
+    <main style={{ minHeight: "100vh", background: "#F5F5F0" }}>
       <Navbar />
-      <div className="pt-28 pb-20 px-6 max-w-5xl mx-auto">
-        <div className="mb-8"><SearchBar /></div>
+      <TrendingBar />
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px 20px" }}>
 
-        {aiResult && aiResult.interpreted && (
-          <div className="glass rounded-2xl p-5 mb-6 border border-[#6C63FF]/20">
-            <div className="flex items-center gap-2 text-[#6C63FF] font-bold text-xs uppercase tracking-wide mb-3">
-              <Sparkles className="w-4 h-4" /> AI Understanding
+        {/* Search */}
+        <div style={{ background: "#fff", border: "1px solid #E5E5E0", borderRadius: 10, padding: 20, marginBottom: 20 }}>
+          <SearchBar autoFocus />
+        </div>
+
+        {/* AI Card */}
+        {aiResult?.interpreted && (
+          <div style={{ background: "#fff", border: "1px solid #00B386", borderRadius: 10, padding: 16, marginBottom: 20 }} className="fade-in">
+            <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#00B386", fontWeight: 700, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>
+              <Sparkles size={13} /> AI Understanding
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="flex gap-2">
-                <Tag className="w-4 h-4 text-[#6B6B8A] mt-0.5 shrink-0" />
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+              <div style={{ display: "flex", gap: 8 }}>
+                <Tag size={14} color="#9CA3AF" style={{ marginTop: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[#6B6B8A] text-xs">Interpreted as</p>
-                  <p className="text-white text-sm font-bold">{aiResult.interpreted}</p>
+                  <div style={{ fontSize: 10, color: "#9CA3AF", marginBottom: 2 }}>Interpreted as</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "#1C1C1C" }}>{aiResult.interpreted}</div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <TrendingUp className="w-4 h-4 text-[#6B6B8A] mt-0.5 shrink-0" />
+              <div style={{ display: "flex", gap: 8 }}>
+                <TrendingUp size={14} color="#9CA3AF" style={{ marginTop: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[#6B6B8A] text-xs">Price Range</p>
-                  <p className="font-mono-price text-[#00D4AA] text-sm font-bold">{aiResult.priceRange}</p>
+                  <div style={{ fontSize: 10, color: "#9CA3AF", marginBottom: 2 }}>Price Range</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#00B386", fontFamily: "monospace" }}>{aiResult.priceRange}</div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Lightbulb className="w-4 h-4 text-[#6B6B8A] mt-0.5 shrink-0" />
+              <div style={{ display: "flex", gap: 8 }}>
+                <Lightbulb size={14} color="#9CA3AF" style={{ marginTop: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[#6B6B8A] text-xs">Buying Tip</p>
-                  <p className="text-white text-sm">{aiResult.suggestion}</p>
+                  <div style={{ fontSize: 10, color: "#9CA3AF", marginBottom: 2 }}>Buying Tip</div>
+                  <div style={{ fontSize: 13, color: "#1C1C1C" }}>{aiResult.suggestion}</div>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-white font-bold text-xl">
-            {loading ? "Finding prices..." : query ? "Results for \"" + query + "\"" : "Search something above"}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1C1C" }}>
+            {loading ? "Searching..." : query ? "Results for \"" + query + "\"" : "Search something above"}
           </h2>
-          {!loading && <span className="text-[#6B6B8A] text-sm">{results.length} results</span>}
+          {!loading && <span style={{ fontSize: 12, color: "#9CA3AF" }}>{results.length} results found</span>}
         </div>
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-4">
-            <Loader2 className="w-10 h-10 text-[#6C63FF] animate-spin" />
-            <p className="text-[#6B6B8A] text-sm">AI is fetching real prices for you...</p>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 0", gap: 12 }}>
+            <Loader2 size={32} color="#00B386" style={{ animation: "spin 1s linear infinite" }} />
+            <p style={{ color: "#9CA3AF", fontSize: 13 }}>Fetching real prices for you...</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 gap-4">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12 }}>
             {results.map((item, i) => <PriceCard key={i} {...item} index={i} />)}
           </div>
         )}

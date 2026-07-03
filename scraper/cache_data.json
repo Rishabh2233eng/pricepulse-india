@@ -35,5 +35,64 @@
         "description": "Toyota Fortuner 4x2 AT ex-showroom price Delhi."
       }
     ]
+  },
+  "vehicle_royal_enfield": {
+    "timestamp": 1783030524.2292204,
+    "data": [
+      {
+        "name": "Royal Enfield Classic 350 Redditch",
+        "price": "193079",
+        "unit": "piece",
+        "change": 2,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Classic 350 Redditch ex-showroom Delhi."
+      },
+      {
+        "name": "Royal Enfield Classic 350 Halcyon",
+        "price": "210000",
+        "unit": "piece",
+        "change": 2,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Classic 350 Halcyon ex-showroom."
+      },
+      {
+        "name": "Royal Enfield Meteor 350 Fireball",
+        "price": "210000",
+        "unit": "piece",
+        "change": 2,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Meteor 350 Fireball ex-showroom."
+      },
+      {
+        "name": "Royal Enfield Himalayan 450",
+        "price": "284000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Himalayan 450 adventure tourer."
+      },
+      {
+        "name": "Royal Enfield Bullet 350",
+        "price": "172900",
+        "unit": "piece",
+        "change": 2,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Bullet 350 ex-showroom Delhi."
+      },
+      {
+        "name": "Royal Enfield Hunter 350",
+        "price": "149900",
+        "unit": "piece",
+        "change": 1,
+        "source": "Royal Enfield",
+        "category": "Bike",
+        "description": "RE Hunter 350 ex-showroom Delhi."
+      }
+    ]
   }
 }
