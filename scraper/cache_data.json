@@ -94,5 +94,114 @@
         "description": "RE Hunter 350 ex-showroom Delhi."
       }
     ]
+  },
+  "metal_gold": {
+    "timestamp": 1783201250.7551885,
+    "data": [
+      {
+        "name": "Gold 24K (999 Pure)",
+        "price": "7240",
+        "unit": "gram",
+        "change": 1.2,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "24 Karat pure gold MCX India today."
+      },
+      {
+        "name": "Gold 22K (916 Hallmark)",
+        "price": "6637",
+        "unit": "gram",
+        "change": 1.1,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "22 Karat hallmark gold for jewellery."
+      },
+      {
+        "name": "Gold 18K (750)",
+        "price": "5430",
+        "unit": "gram",
+        "change": 1.0,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "18 Karat gold price India."
+      },
+      {
+        "name": "Gold 10 gram (24K)",
+        "price": "72400",
+        "unit": "10 gram",
+        "change": 1.2,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "Gold price per 10 grams."
+      },
+      {
+        "name": "Gold 1 Tola (11.66g)",
+        "price": "84490",
+        "unit": "tola",
+        "change": 1.2,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "Gold price per tola."
+      },
+      {
+        "name": "Gold 1 Ounce (31.1g)",
+        "price": "225272",
+        "unit": "ounce",
+        "change": 1.2,
+        "source": "MCX India",
+        "category": "Commodity",
+        "description": "Gold price per ounce India."
+      }
+    ]
+  },
+  "vehicle_tata_nexon": {
+    "timestamp": 1783201262.6845963,
+    "data": [
+      {
+        "name": "Tata Nexon EV Creative",
+        "price": "1399000",
+        "unit": "piece",
+        "change": -1,
+        "source": "Tata Motors",
+        "category": "Car",
+        "description": "Tata Nexon EV Creative ex-showroom."
+      },
+      {
+        "name": "Tata Nexon EV Fearless+",
+        "price": "1899000",
+        "unit": "piece",
+        "change": -1,
+        "source": "Tata Motors",
+        "category": "Car",
+        "description": "Tata Nexon EV Fearless+ long range."
+      },
+      {
+        "name": "Tata Nexon Smart",
+        "price": "799000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Tata Motors",
+        "category": "Car",
+        "description": "Tata Nexon Smart petrol ex-showroom."
+      },
+      {
+        "name": "Tata Nexon Smart+",
+        "price": "949000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Tata Motors",
+        "category": "Car",
+        "description": "Tata Nexon Smart+ petrol."
+      },
+      {
+        "name": "Tata Nexon Creative",
+        "price": "1199000",
+        "unit": "piece",
+        "change": 1,
+        "source": "Tata Motors",
+        "category": "Car",
+        "description": "Tata Nexon Creative petrol."
+      }
+    ]
   }
 }

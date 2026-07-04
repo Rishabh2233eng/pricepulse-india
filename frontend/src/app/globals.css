@@ -19,19 +19,36 @@ body {
   background: #F5F5F0;
   color: #1C1C1C;
   font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 450;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .font-mono-price {
   font-family: var(--font-mono), 'Courier New', monospace;
   font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
+
+h1, h2, h3 {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1C1C1C;
+}
+
+strong, b { font-weight: 700; }
 
 /* Animations */
 @keyframes fadeUp {
