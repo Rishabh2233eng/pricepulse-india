@@ -21,17 +21,16 @@ export default function TrendingBar() {
   const doubled = [...items, ...items];
 
   return (
-    <div className="ticker-bar" style={{ marginTop: 52 }}>
+    <div style={{ background: "#1A1A1A", borderBottom: "1px solid #222", overflow: "hidden", marginTop: 54 }}>
       <div className="ticker-animate">
         {doubled.map((item, i) => (
-          <button
-            key={i}
-            onClick={() => router.push("/search?q=" + encodeURIComponent(item.name))}
-            style={{ display: "flex", alignItems: "center", gap: 6, padding: "0 16px", background: "none", border: "none", cursor: "pointer", borderRight: "1px solid #2A2A2A", whiteSpace: "nowrap" }}
-          >
-            <span style={{ color: "#9CA3AF", fontSize: 11 }}>{item.name}</span>
-            <span style={{ color: "#F0B429", fontSize: 11, fontWeight: 700, fontFamily: "monospace" }}>₹{item.price}</span>
-            <span style={{ fontSize: 10, fontWeight: 700, color: item.change > 0 ? "#EF4444" : item.change < 0 ? "#00B386" : "#6B7280" }}>
+          <button key={i} onClick={() => router.push("/search?q=" + encodeURIComponent(item.name))}
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 18px", background: "none", border: "none", borderRight: "1px solid #2A2A2A", cursor: "pointer", whiteSpace: "nowrap", transition: "background 0.15s" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#222")}
+            onMouseLeave={e => (e.currentTarget.style.background = "none")}>
+            <span style={{ color: "#9CA3AF", fontSize: 11, fontWeight: 500 }}>{item.name}</span>
+            <span style={{ color: "#D97706", fontSize: 11, fontWeight: 700, fontFamily: "monospace" }}>₹{item.price}</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: item.change > 0 ? "#F87171" : item.change < 0 ? "#34D399" : "#6B7280" }}>
               {item.change > 0 ? "▲" : item.change < 0 ? "▼" : "—"}{item.change !== 0 ? Math.abs(item.change) + "%" : ""}
             </span>
           </button>

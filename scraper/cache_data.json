@@ -37,7 +37,7 @@
     ]
   },
   "vehicle_royal_enfield": {
-    "timestamp": 1783030524.2292204,
+    "timestamp": 1783289770.7302346,
     "data": [
       {
         "name": "Royal Enfield Classic 350 Redditch",
@@ -96,7 +96,7 @@
     ]
   },
   "metal_gold": {
-    "timestamp": 1783201250.7551885,
+    "timestamp": 1783289537.5239582,
     "data": [
       {
         "name": "Gold 24K (999 Pure)",
@@ -201,6 +201,38 @@
         "source": "Tata Motors",
         "category": "Car",
         "description": "Tata Nexon Creative petrol."
+      }
+    ]
+  },
+  "veg_cashew": {
+    "timestamp": 1783289597.226274,
+    "data": [
+      {
+        "name": "Cashew W240 (Premium)",
+        "price": "850",
+        "unit": "kg",
+        "change": 2,
+        "source": "Market",
+        "category": "Dry Fruit",
+        "description": "Premium W240 cashew nuts."
+      },
+      {
+        "name": "Cashew W320",
+        "price": "750",
+        "unit": "kg",
+        "change": 1,
+        "source": "Market",
+        "category": "Dry Fruit",
+        "description": "W320 cashew nuts."
+      },
+      {
+        "name": "Cashew Broken",
+        "price": "600",
+        "unit": "kg",
+        "change": 1,
+        "source": "Market",
+        "category": "Dry Fruit",
+        "description": "Broken cashew pieces."
       }
     ]
   }
