@@ -28,7 +28,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-body), 'Inter', -apple-system, sans-serif;
+  font-family: var(--font-body), 'Outfit', -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 450;
   line-height: 1.6;
@@ -37,16 +37,16 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-display), 'Syne', Georgia, sans-serif;
+  font-family: var(--font-display), 'Epilogue', sans-serif;
   color: var(--ink);
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
 
-h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.035em; }
-h2 { font-size: 18px; font-weight: 750; }
-h3 { font-size: 15px; font-weight: 700; }
-h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink3); }
+h1 { font-size: 30px; font-weight: 900; letter-spacing: -0.04em; }
+h2 { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink3); }
 
 .mono {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;

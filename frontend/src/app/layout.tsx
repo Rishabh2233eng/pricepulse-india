@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Syne, Inter, JetBrains_Mono } from "next/font/google";
+import { Epilogue, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const epilogue = Epilogue({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
@@ -26,13 +26,12 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "PricePulse India — Real Market Prices",
   description: "Search any product and get real current Indian market prices powered by AI and ML.",
-  keywords: "India price, market rate, gold price, petrol price, vegetable price, mandi bhav",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${syne.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <body className={`${epilogue.variable} ${outfit.variable} ${jetbrains.variable}`}>
         {children}
       </body>
     </html>
