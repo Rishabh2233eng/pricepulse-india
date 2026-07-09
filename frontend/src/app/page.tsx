@@ -7,6 +7,7 @@ import CategoryGrid from "@/components/CategoryGrid";
 import { ShieldCheck, TrendingUp, TrendingDown, Minus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ShieldCheck, TrendingUp, TrendingDown, Minus, ArrowRight, ShoppingBasket } from "lucide-react";
 
 const trending = [
   { name: "Tomato", price: "42", unit: "kg", change: -12, source: "Agmarknet", category: "Vegetable", description: "Fresh tomatoes from local mandis." },
@@ -137,6 +138,24 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            {/* Budget Basket Banner */}
+<Link href="/basket" style={{ textDecoration: "none" }}>
+  <div style={{ background: "#FDFAF5", border: "1px solid #CFC8B4", borderRadius: 12, padding: 20, cursor: "pointer", transition: "all 0.15s", display: "flex", alignItems: "center", justifyContent: "space-between" }}
+    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "#1E5C3A"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(30,92,58,0.1)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#CFC8B4"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; (e.currentTarget as HTMLElement).style.transform = "none"; }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ width: 40, height: 40, background: "#DFF0E8", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <ShoppingBasket size={20} color="#1E5C3A" strokeWidth={2} />
+      </div>
+      <div>
+        <div style={{ fontWeight: 800, fontSize: 14, color: "#1A1208", letterSpacing: "-0.02em", fontFamily: "var(--font-display)" }}>Budget Basket</div>
+        <div style={{ fontSize: 12, color: "#9A8A6E", marginTop: 1 }}>Add items + quantity → see total real market cost vs what you paid</div>
+      </div>
+    </div>
+    <ArrowRight size={16} color="#1E5C3A" strokeWidth={2.5} />
+  </div>
+</Link>
 
             {/* Key Prices */}
             <div style={{ background: "#FFFFFF", border: "1px solid #DDD4BE", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(30,18,8,0.04)" }}>

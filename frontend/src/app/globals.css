@@ -4,25 +4,25 @@
 html { scroll-behavior: smooth; }
 
 :root {
-  --bg: #F2EDE3;
-  --bg2: #EDE7DB;
-  --surface: #FAF7F2;
-  --card: #FFFFFF;
+  --bg: #EDE8DE;
+  --bg2: #E6E0D4;
+  --surface: #F5F1EA;
+  --card: #FDFAF5;
   --ink: #1A1208;
   --ink2: #3D3020;
   --ink3: #6B5B3E;
   --ink4: #9A8A6E;
-  --border: #DDD4BE;
-  --border2: #C8B89A;
+  --border: #CFC8B4;
+  --border2: #B8AA90;
   --green: #1E5C3A;
   --green2: #2D7A4F;
   --green3: #4CAF7D;
-  --green-bg: #E8F5EE;
+  --green-bg: #DFF0E8;
   --red: #C0392B;
-  --red-bg: #FDEDEB;
+  --red-bg: #FAEBE9;
   --gold: #B8860B;
   --gold2: #C8A84B;
-  --gold-bg: #FDF6E3;
+  --gold-bg: #FAF0D7;
 }
 
 body {

@@ -3,10 +3,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TrendingUp, Search, BookMarked, ShieldCheck, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { TrendingUp, Search, BookMarked, ShieldCheck, Menu, X, ShoppingBasket } from "lucide-react";
 
 const links = [
   { href: "/", label: "Markets", icon: TrendingUp },
   { href: "/search", label: "Search", icon: Search },
+  { href: "/basket", label: "Budget Basket", icon: ShoppingBasket },
   { href: "/fair-price", label: "Fair Price", icon: ShieldCheck },
   { href: "/watchlist", label: "Watchlist", icon: BookMarked },
 ];
