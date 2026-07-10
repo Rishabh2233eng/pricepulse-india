@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import TrendingBar from "@/components/TrendingBar";
-import { Plus, Trash2, ShoppingBasket, ArrowLeft, Loader2, TrendingDown, Share2, RefreshCw } from "lucide-react";
+import { ShieldCheck, TrendingUp, TrendingDown, Minus, ArrowRight, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 
 interface BasketItem {

@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { TrendingUp, Search, BookMarked, ShieldCheck, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { TrendingUp, Search, BookMarked, ShieldCheck, Menu, X, ShoppingBasket } from "lucide-react";
 
