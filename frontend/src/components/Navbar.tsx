@@ -66,6 +66,20 @@ export default function Navbar() {
           })}
         </div>
       )}
+      {/* Mobile Bottom Nav */}
+      <div className="mobile-nav">
+        {links.map((l) => {
+          const Icon = l.icon;
+          const active = path === l.href;
+          return (
+            <Link key={l.href} href={l.href}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, textDecoration: "none", padding: "4px 12px", flex: 1 }}>
+              <Icon size={20} strokeWidth={2} color={active ? "#4CAF7D" : "#6B5B3E"} />
+              <span style={{ fontSize: 9, fontWeight: 600, color: active ? "#4CAF7D" : "#6B5B3E", letterSpacing: "0.04em" }}>{l.label}</span>
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 }
