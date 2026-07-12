@@ -235,5 +235,19 @@
         "description": "Broken cashew pieces."
       }
     ]
+  },
+  "phone_iphone_16": {
+    "timestamp": 1783894219.6589391,
+    "data": [
+      {
+        "name": "iPhone 16 128GB",
+        "price": "79900",
+        "unit": "piece",
+        "change": -1,
+        "source": "Apple India",
+        "category": "Smartphone",
+        "description": "Apple iPhone 16 128GB."
+      }
+    ]
   }
 }

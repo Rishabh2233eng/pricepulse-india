@@ -4,7 +4,6 @@ import SearchBar from "@/components/SearchBar";
 import PriceCard from "@/components/PriceCard";
 import TrendingBar from "@/components/TrendingBar";
 import CategoryGrid from "@/components/CategoryGrid";
-import { ShieldCheck, TrendingUp, TrendingDown, Minus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ShieldCheck, TrendingUp, TrendingDown, Minus, ArrowRight, ShoppingBasket } from "lucide-react";
